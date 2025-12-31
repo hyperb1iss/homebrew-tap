@@ -10,11 +10,11 @@ class GitIris < Formula
   on_macos do
     on_arm do
       url "https://github.com/hyperb1iss/git-iris/releases/download/v#{version}/git-iris-macos-arm64"
-      sha256 "PLACEHOLDER"
+      sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     end
     on_intel do
       url "https://github.com/hyperb1iss/git-iris/archive/refs/tags/v#{version}.tar.gz"
-      sha256 "PLACEHOLDER"
+      sha256 "a8c3caa5867596abecc9f13c2b32c6f30068ad987100d78411707a30be231016"
       depends_on "rust" => :build
     end
   end
@@ -22,11 +22,11 @@ class GitIris < Formula
   on_linux do
     on_arm do
       url "https://github.com/hyperb1iss/git-iris/releases/download/v#{version}/git-iris-linux-arm64"
-      sha256 "PLACEHOLDER"
+      sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     end
     on_intel do
       url "https://github.com/hyperb1iss/git-iris/releases/download/v#{version}/git-iris-linux-amd64"
-      sha256 "PLACEHOLDER"
+      sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     end
   end
 
