@@ -5,16 +5,16 @@ class GitIris < Formula
   desc "An intelligent agent that understands your code and crafts perfect Git artifacts"
   homepage "https://github.com/hyperb1iss/git-iris"
   license "Apache-2.0"
-  version "2.0.9"
+  version "2.1.0"
 
   on_macos do
     on_arm do
       url "https://github.com/hyperb1iss/git-iris/releases/download/v#{version}/git-iris-macos-arm64"
-      sha256 "0e497e1208c55e9410a16b81ec1ce09395ecee68a266013fc5e0e3e4b53f32b2"
+      sha256 "d64d63c88cfb0bb5b966f67c388cc3532a109f18bfb968731b0fb2cf14424a0c"
     end
     on_intel do
       url "https://github.com/hyperb1iss/git-iris/archive/refs/tags/v#{version}.tar.gz"
-      sha256 "3fdb00ad376f0063f6dfa0f7ed2fb5fefe8e62e1f284de3aabe6a939889f1382"
+      sha256 "cc2bd3cf67ec5ae7d6fc4f9199c8ad9b9cbbbcbb86e79d1476835cd41a71e080"
       depends_on "rust" => :build
     end
   end
@@ -22,11 +22,11 @@ class GitIris < Formula
   on_linux do
     on_arm do
       url "https://github.com/hyperb1iss/git-iris/releases/download/v#{version}/git-iris-linux-arm64"
-      sha256 "4136e2e0a884acf0dadf8b8573f1f31a9e1d5236f952f75580d931d5be38b877"
+      sha256 "2baf8b830bb2aa347d371b0b987ea58666c18da3543fffbc56ad629e765228f7"
     end
     on_intel do
       url "https://github.com/hyperb1iss/git-iris/releases/download/v#{version}/git-iris-linux-amd64"
-      sha256 "6848ff28c223431fc8f13b073ce3688e099c11a1ad4e9c471b2a6f2ad03560c1"
+      sha256 "e3096dac3d08a2d90247829ee40682119ee332053c496b9ab3f7fba18ffc214f"
     end
   end
 
