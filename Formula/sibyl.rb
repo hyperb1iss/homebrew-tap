@@ -6,23 +6,23 @@ class Sibyl < Formula
 
   desc "Persistent memory and task coordination for AI coding agents"
   homepage "https://github.com/hyperb1iss/sibyl"
-  url "https://files.pythonhosted.org/packages/14/65/2bb64323ef20bf7e0408b10076248374f28c1981545f5e5a1a412af87409/sibyl_dev-1.0.0.tar.gz"
-  sha256 "9f1636c666636cb39f05ccb61a0f4b4d5b6cf40d14a2881225c928b25d08412e"
+  url "https://files.pythonhosted.org/packages/94/fc/937cb7ff6d5544ba79da962c659d72dbdb116e803870a583b697fee70fdf/sibyl_dev-1.0.1.tar.gz"
+  sha256 "f90c3786bbc34d0de0635863bbc0260a8c62b9b49ad3999675ac844e72fd5e4d"
   license "Apache-2.0"
-  version "1.0.0"
+  version "1.0.1"
 
-  PYTHON_PACKAGE_VERSION = "1.0.0"
+  PYTHON_PACKAGE_VERSION = "1.0.1"
 
   depends_on "python@3.13"
 
   resource "sibyl-core" do
-    url "https://files.pythonhosted.org/packages/5a/1f/c165beaf68a5fcfa70d00b6927795e168fe953e9e9d05ade7dc8836304aa/sibyl_core-1.0.0.tar.gz"
-    sha256 "ad8596cb55ead8ec70322157284660b9f0a5afee614168b84f36fa068b156ad4"
+    url "https://files.pythonhosted.org/packages/33/2d/52d283ec12302209e26fd07c39becfb532561fb14b7d8aa7f7411489918f/sibyl_core-1.0.1.tar.gz"
+    sha256 "8babea00e37c0bb09787b73ffd3b195993c6d89b00c77ed08c7ee2f565126535"
   end
 
   resource "sibyld" do
-    url "https://files.pythonhosted.org/packages/07/f9/e17a055beaf2a171d4990d373f72dc08f86ab0c102dc20fdb19fabda5a8c/sibyld-1.0.0.tar.gz"
-    sha256 "f48bb88e7355c1f4e122c56b1aceb59290d4a0445e3260a8a890ca6290279fe9"
+    url "https://files.pythonhosted.org/packages/31/27/847f16ff3bbfaeda1d74a394b3283f5f3cd1dd7bf8920210045e3ee829ae/sibyld-1.0.1.tar.gz"
+    sha256 "6c503818c1a6530f2c7c77fc433f85903c80e00045dd09fb20c77d68b073efb5"
   end
 
   def install
