@@ -7,23 +7,23 @@
 class Hypercolor < Formula
   desc "Open-source RGB lighting orchestration engine"
   homepage "https://github.com/hyperb1iss/hypercolor"
-  version "0.2.1"
+  version "0.3.1"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-macos-arm64.tar.gz"
-      sha256 "de390d0f0b0756aef15e80940698c6954171843d9b5e39afe626b5d9b2ee13d6"
+      sha256 "130bd636bf10a38432a88193965f31ba20cb234128dff2c1e086df4afae771ef"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-amd64.tar.gz"
-      sha256 "6386383ec769c85f3463d269d2259283c03a27eb072ac400d733575e6b3f46da"
+      sha256 "239c1319f7eaa967197b938b4c43473ceccde0cfb21e0a932da2778748e59f92"
     elsif Hardware::CPU.arm?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-arm64.tar.gz"
-      sha256 "355e8da4e69e5513a500e916af2ed080400f92c57e35e6882955161fe20e3df6"
+      sha256 "4ea15d163c3baf5e2395bff9fa04b52ee1211410cb6fed217988fc859039012f"
     end
   end
 
