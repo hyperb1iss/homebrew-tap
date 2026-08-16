@@ -6,9 +6,9 @@
 cask "hypercolor-app" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "0.3.1"
-  sha256 arm:   "0e5183291f6b10f97eb1e03f1187ad98df3ce7d40eb84e8e4ffb4c8475cbd7e7",
-         intel: "34cd8d2bbc6aa67bbf497d068a508b9306e76b376feb25e9d7664fc97cb00e04"
+  version "0.3.2"
+  sha256 arm:   "63d99937211948c962862d7581be01d8f452042c9e616b4bb2a0311038a270d3",
+         intel: "524cb52a00cd45641ec002e06e45289e863991963b8e4e9b52bf9f2de70fa806"
 
   url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/Hypercolor-#{version}-#{arch}.dmg",
       verified: "github.com/hyperb1iss/hypercolor/"
