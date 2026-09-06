@@ -1,0 +1,29 @@
+name: blocksd formula
+
+on:
+  pull_request:
+    paths:
+      - "Formula/blocksd.rb"
+      - ".github/workflows/blocksd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    runs-on: macos-latest
+    env:
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+      HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: "1"
+      HOMEBREW_NO_ASK: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install and test the published release
+        run: |
+          brew tap-new blocksd/ci
+          cp Formula/blocksd.rb "$(brew --repository blocksd/ci)/Formula/blocksd.rb"
+          brew install --build-from-source blocksd/ci/blocksd
+          brew test blocksd/ci/blocksd
