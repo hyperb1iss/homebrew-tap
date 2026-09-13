@@ -30,7 +30,7 @@ jobs:
           stable: true
       - name: Evaluate formula and service with Homebrew
         run: |
-          brew tap-new hypercolor/ci
+          brew tap-new --no-git hypercolor/ci
           cp Formula/hypercolor.rb "$(brew --repository hypercolor/ci)/Formula/hypercolor.rb"
           brew info --json=v2 hypercolor/ci/hypercolor
           brew ruby -e '
