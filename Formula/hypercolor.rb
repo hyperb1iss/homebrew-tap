@@ -29,7 +29,7 @@ class Hypercolor < Formula
 
   on_macos do
     version "0.3.2"
-    depends_on macos: ">= :sequoia"
+    depends_on macos: :sequoia
     depends_on MacosVersionRequirement
 
     if Hardware::CPU.arm?
@@ -91,7 +91,7 @@ class Hypercolor < Formula
   # systemd evidence resolves the identity on its own.
   on_macos do
     service do
-      run [opt_bin/"hypercolor-daemon", "--macos-owner", "homebrew", "--ui-dir", share/"hypercolor/ui"]
+      run [opt_bin/"hypercolor-daemon", "--macos-owner", "homebrew", "--ui-dir", opt_pkgshare/"ui"]
       keep_alive successful_exit: false
       log_path var/"log/hypercolor/hypercolor.log"
       error_log_path var/"log/hypercolor/hypercolor.log"
@@ -101,7 +101,7 @@ class Hypercolor < Formula
 
   on_linux do
     service do
-      run [opt_bin/"hypercolor-daemon", "--ui-dir", share/"hypercolor/ui"]
+      run [opt_bin/"hypercolor-daemon", "--ui-dir", opt_pkgshare/"ui"]
       keep_alive successful_exit: false
       log_path var/"log/hypercolor/hypercolor.log"
       error_log_path var/"log/hypercolor/hypercolor.log"
