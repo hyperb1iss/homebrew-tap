@@ -32,6 +32,7 @@ jobs:
         run: |
           brew tap-new --no-git hypercolor/ci
           cp Formula/hypercolor.rb "$(brew --repository hypercolor/ci)/Formula/hypercolor.rb"
+          brew trust --formula hypercolor/ci/hypercolor
           brew info --json=v2 hypercolor/ci/hypercolor
           brew ruby -e '
             require "formulary"
