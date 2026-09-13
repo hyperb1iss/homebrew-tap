@@ -1,0 +1,45 @@
+name: Hypercolor formula
+
+on:
+  pull_request:
+    paths:
+      - "Formula/hypercolor.rb"
+      - ".github/workflows/hypercolor.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Formula/hypercolor.rb"
+      - ".github/workflows/hypercolor.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  formula:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Homebrew/actions/setup-homebrew@7f791ee8209b4ed73dd5564b92fea6998e22f5c5
+        with:
+          stable: true
+      - name: Evaluate formula and service with Homebrew
+        run: |
+          brew tap-new --no-git hypercolor/ci
+          cp Formula/hypercolor.rb "$(brew --repository hypercolor/ci)/Formula/hypercolor.rb"
+          brew trust --formula hypercolor/ci/hypercolor
+          brew info --json=v2 hypercolor/ci/hypercolor
+          brew ruby -e '
+            require "formulary"
+            formula = Formulary.factory("hypercolor/ci/hypercolor")
+            service = formula.service.to_hash
+            expected = [formula.opt_bin/"hypercolor-daemon"]
+            expected += ["--macos-owner", "homebrew"] if OS.mac?
+            expected += ["--ui-dir", formula.opt_pkgshare/"ui"]
+            abort "Unexpected daemon service command: #{service[:run]}" unless service[:run] == expected
+          '
