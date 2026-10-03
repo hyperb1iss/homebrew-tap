@@ -3,10 +3,9 @@
 
 # Homebrew formula for Hypercolor.
 #
-# scripts/homebrew-formula.mjs renders this template on every stable tag:
-# the Linux stanzas come from the public release, and the macOS stanzas are
-# carried forward from the formula already published in the tap until the
-# signed macOS lane promotes a newer accepted build.
+# scripts/homebrew-formula.mjs renders Linux from every stable release. macOS
+# comes from the same release when its notarized build shipped; otherwise the
+# macOS stanza is carried forward from the formula already in the tap.
 
 class Hypercolor < Formula
   # Sequoia's symbolic version cannot distinguish 15.0 from the 15.2 floor.
@@ -24,27 +23,28 @@ class Hypercolor < Formula
 
   desc "Open-source RGB lighting orchestration engine"
   homepage "https://github.com/hyperb1iss/hypercolor"
-  version "0.5.1"
+  version "0.6.1"
   license "Apache-2.0"
 
+  # macOS releases ship for Apple silicon only, so Homebrew refuses Intel
+  # Macs up front instead of fetching an archive that does not exist.
   on_macos do
     version "0.3.2"
+    depends_on arch: :arm64
     depends_on macos: :sequoia
     depends_on MacosVersionRequirement
 
-    if Hardware::CPU.arm?
-      url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-macos-arm64.tar.gz"
-      sha256 "fab9e565fc5efa518cff23377883190e0a041d44454a0543e182e6133f3276f4"
-    end
+    url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-macos-arm64.tar.gz"
+    sha256 "fab9e565fc5efa518cff23377883190e0a041d44454a0543e182e6133f3276f4"
   end
 
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-amd64.tar.gz"
-      sha256 "5f4102f3ea07d2cd96d019bd431fbddd7d8155ebbee1cb623ae2bbfe010cfd75"
+      sha256 "4c044e71225b18623fd32d9a0777f65fbd21f37d9532231bc6bf80803bdfa2b7"
     elsif Hardware::CPU.arm?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-arm64.tar.gz"
-      sha256 "29f71b267e118e4d43f42952427f135159c86b0f6b954fdb6444840c0c143e2f"
+      sha256 "faffd050fa4dd9d0ace6e92265dad4f0a3d8ee52bcaa370bec117d214e87787f"
     end
   end
 
