@@ -18,7 +18,7 @@ cask "hypercolor-app" do
 
   # The newest notarized build is too old to offer; the next notarized
   # release re-renders this cask without the stanza.
-  disable! date: "2026-10-04", because: "is waiting on a notarized release"
+  disable! date: "2026-10-03", because: "is waiting on a notarized release"
 
   app "Hypercolor.app"
 
