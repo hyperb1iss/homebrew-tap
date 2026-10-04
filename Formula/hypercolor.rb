@@ -5,7 +5,8 @@
 #
 # scripts/homebrew-formula.mjs renders Linux from every stable release. macOS
 # comes from the same release when its notarized build shipped; otherwise the
-# macOS stanza is carried forward from the formula already in the tap.
+# macOS stanza is carried forward from the formula already in the tap, which
+# may be a withdrawn stanza that refuses macOS until a notarized build ships.
 
 class Hypercolor < Formula
   # Sequoia's symbolic version cannot distinguish 15.0 from the 15.2 floor.
@@ -21,21 +22,35 @@ class Hypercolor < Formula
     end
   end
 
+  # Only a withdrawn macOS stanza depends on this, so a macOS install fails
+  # with a reason instead of resolving an older build.
+  class NotarizedMacosBuildRequirement < Requirement
+    fatal true
+
+    satisfy(build_env: false) do
+      !OS.mac?
+    end
+
+    def message
+      "Hypercolor's macOS build is waiting on Apple notarization, so this release " \
+        "installs on Linux only. If an older build is installed, remove it with " \
+        "`brew uninstall hypercolor`."
+    end
+  end
+
   desc "Open-source RGB lighting orchestration engine"
   homepage "https://github.com/hyperb1iss/hypercolor"
   version "0.6.1"
   license "Apache-2.0"
 
-  # macOS releases ship for Apple silicon only, so Homebrew refuses Intel
-  # Macs up front instead of fetching an archive that does not exist.
+  # No notarized macOS build is published, so macOS installs fail with a
+  # reason instead of falling back to an older build. Homebrew needs a URL to
+  # load the formula on macOS; the requirement refuses installs and upgrades.
   on_macos do
-    version "0.3.2"
-    depends_on arch: :arm64
-    depends_on macos: :sequoia
-    depends_on MacosVersionRequirement
+    depends_on NotarizedMacosBuildRequirement
 
-    url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-macos-arm64.tar.gz"
-    sha256 "fab9e565fc5efa518cff23377883190e0a041d44454a0543e182e6133f3276f4"
+    url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-amd64.tar.gz"
+    sha256 "4c044e71225b18623fd32d9a0777f65fbd21f37d9532231bc6bf80803bdfa2b7"
   end
 
   on_linux do

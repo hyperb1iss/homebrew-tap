@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - "Formula/hypercolor.rb"
+      - "Casks/hypercolor-app.rb"
       - ".github/workflows/hypercolor.yml"
   push:
     branches: [main]
     paths:
       - "Formula/hypercolor.rb"
+      - "Casks/hypercolor-app.rb"
       - ".github/workflows/hypercolor.yml"
   workflow_dispatch:
 
@@ -43,3 +45,37 @@ jobs:
             expected += ["--ui-dir", formula.opt_pkgshare/"ui"]
             abort "Unexpected daemon service command: #{service[:run]}" unless service[:run] == expected
           '
+      - name: Refuse macOS installs while macOS is withdrawn
+        if: runner.os == 'macOS'
+        run: |
+          if ! grep -q 'depends_on NotarizedMacosBuildRequirement' Formula/hypercolor.rb; then
+            echo "The formula offers a macOS build; nothing to refuse."
+            exit 0
+          fi
+          cache="$(brew --cache hypercolor/ci/hypercolor)"
+          if brew install hypercolor/ci/hypercolor > install.log 2>&1; then
+            cat install.log
+            echo "::error::brew installed the formula on macOS while macOS is withdrawn"
+            exit 1
+          fi
+          cat install.log
+          grep -q "waiting on Apple notarization" install.log
+          # The requirement must stop the install before any download.
+          test ! -e "$cache"
+      - name: Evaluate the desktop app cask
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p "$(brew --repository hypercolor/ci)/Casks"
+          cp Casks/hypercolor-app.rb "$(brew --repository hypercolor/ci)/Casks/hypercolor-app.rb"
+          brew trust --cask hypercolor/ci/hypercolor-app
+          brew info --cask hypercolor/ci/hypercolor-app
+          if ! grep -q '^  disable!' Casks/hypercolor-app.rb; then
+            exit 0
+          fi
+          if brew install --cask hypercolor/ci/hypercolor-app > cask-install.log 2>&1; then
+            cat cask-install.log
+            echo "::error::brew installed the cask while it is disabled"
+            exit 1
+          fi
+          cat cask-install.log
+          grep -q "disabled because it is waiting on a notarized release" cask-install.log
