@@ -33,8 +33,8 @@ class Hypercolor < Formula
 
     def message
       "Hypercolor's macOS build is waiting on Apple notarization, so this release " \
-        "installs on Linux only. Notarized builds appear at " \
-        "https://github.com/hyperb1iss/hypercolor/releases"
+        "installs on Linux only. If an older build is installed, remove it with " \
+        "`brew uninstall hypercolor`."
     end
   end
 
@@ -45,7 +45,7 @@ class Hypercolor < Formula
 
   # No notarized macOS build is published, so macOS installs fail with a
   # reason instead of falling back to an older build. Homebrew needs a URL to
-  # load the formula on macOS; the requirement is what stops the install.
+  # load the formula on macOS; the requirement refuses installs and upgrades.
   on_macos do
     depends_on NotarizedMacosBuildRequirement
 
