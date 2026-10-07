@@ -1,31 +1,34 @@
 # frozen_string_literal: true
 
 # Homebrew cask for the Hypercolor desktop app.
-# Auto-updated by CI — do not edit SHA256 sums manually.
+# Updated by CI from signed and notarized release artifacts.
 
 cask "hypercolor-app" do
-  arch arm: "arm64", intel: "x86_64"
+  version "0.6.2"
+  sha256 "2ff794e8f5f608ae027effdf578a72dce0fffe0df8bcd2ccf96725fc06f4f6d8"
 
-  version "0.3.2"
-  sha256 arm:   "63d99937211948c962862d7581be01d8f452042c9e616b4bb2a0311038a270d3",
-         intel: "524cb52a00cd45641ec002e06e45289e863991963b8e4e9b52bf9f2de70fa806"
-
-  url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/Hypercolor-#{version}-#{arch}.dmg",
+  url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/Hypercolor-#{version}-arm64.dmg",
       verified: "github.com/hyperb1iss/hypercolor/"
   name "Hypercolor"
   desc "Open-source RGB lighting orchestration"
   homepage "https://github.com/hyperb1iss/hypercolor"
 
-  # The newest notarized build is too old to offer; the next notarized
-  # release re-renders this cask without the stanza.
-  disable! date: "2026-10-03", because: "is waiting on a notarized release (run brew uninstall --cask hypercolor-app to remove an older build)"
+  # Apple silicon only; Homebrew refuses the cask on Intel Macs.
+  depends_on arch: :arm64
+  depends_on macos: ">= :sequoia"
 
   app "Hypercolor.app"
+
+  preflight do
+    if MacOS.version < Version.new("15.2")
+      raise ::Cask::CaskError, "Hypercolor requires macOS 15.2 or newer."
+    end
+  end
 
   zap trash: [
     "~/Library/Application Support/hypercolor",
     "~/Library/Caches/hypercolor",
     "~/Library/Logs/Hypercolor",
-    "~/Library/LaunchAgents/tech.hyperbliss.hypercolor.app.plist",
+    "~/Library/LaunchAgents/Hypercolor.plist",
   ]
 end
