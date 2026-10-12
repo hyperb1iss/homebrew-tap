@@ -1,34 +1,34 @@
 class GhosttyAutomator < Formula
   desc "Ghostty with terminal automation for AI agents"
   homepage "https://github.com/hyperb1iss/ghostty-automator"
-  version "1.3.1-auto.3"
+  version "1.3.1-auto.4"
   license "MIT"
   depends_on "libadwaita" => :linux
 
 on_macos do
   if Hardware::CPU.arm?
-    url "https://github.com/hyperb1iss/ghostty-automator/releases/download/v1.3.1-auto.3/ghostty-automator-macos-arm64.zip"
-    sha256 "b620e77e827c5fdbe894b471ed6c2b47722cb3e5735d5571896c19a09755fb19"
+    url "https://github.com/hyperb1iss/ghostty-automator/releases/download/v1.3.1-auto.4/ghostty-automator-macos-arm64.zip"
+    sha256 "2ba1a308e0c48de6717fe88015793a67659bffc11c2fafeba3e7f5bd28a6fef9"
   end
 end
 
 on_linux do
   if Hardware::CPU.intel?
-    url "https://github.com/hyperb1iss/ghostty-automator/releases/download/v1.3.1-auto.3/ghostty-automator-linux-amd64.tar.gz"
-    sha256 "8a14bd92d8bd9f4f61fc3abb6abb56888f3663adbb6b255f95a2dee89daa864b"
+    url "https://github.com/hyperb1iss/ghostty-automator/releases/download/v1.3.1-auto.4/ghostty-automator-linux-amd64.tar.gz"
+    sha256 "94d30d5e569ad29e35218a85deb213574e348afcdfd5f25f3830c1534020d765"
   end
 end
 
 on_linux do
   if Hardware::CPU.arm?
-    url "https://github.com/hyperb1iss/ghostty-automator/releases/download/v1.3.1-auto.3/ghostty-automator-linux-arm64.tar.gz"
-    sha256 "5dc422e441a61aade079a88d5ac2bc429ebbaba80f09e5561d96977e857a6e18"
+    url "https://github.com/hyperb1iss/ghostty-automator/releases/download/v1.3.1-auto.4/ghostty-automator-linux-arm64.tar.gz"
+    sha256 "401ff98a944c705314ea03031494980af516045b38a90b68ed495cad0f176918"
   end
 end
 
   def install
     libexec.install buildpath.children
-    executable = OS.mac? ? libexec/"Ghostty.app/Contents/MacOS/Ghostty" : libexec/"bin/ghostty-automator"
+    executable = OS.mac? ? libexec/"Ghostty.app/Contents/MacOS/ghostty" : libexec/"bin/ghostty-automator"
     resources = OS.mac? ? "unset GHOSTTY_RESOURCES_DIR" : "export GHOSTTY_RESOURCES_DIR=\"#{libexec}/share/ghostty\""
     libraries = OS.mac? ? "" : "export LD_LIBRARY_PATH=\"#{libexec}/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}\""
     (bin/"ghostty-automator").write <<~EOS
