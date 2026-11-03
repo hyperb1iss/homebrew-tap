@@ -40,7 +40,7 @@ class Hypercolor < Formula
 
   desc "Open-source RGB lighting orchestration engine"
   homepage "https://github.com/hyperb1iss/hypercolor"
-  version "0.8.1"
+  version "0.9.0"
   license "Apache-2.0"
 
   # macOS releases ship for Apple silicon only, so Homebrew refuses Intel
@@ -51,16 +51,16 @@ class Hypercolor < Formula
     depends_on MacosVersionRequirement
 
     url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-macos-arm64.tar.gz"
-    sha256 "2209ab5aca7edff44cc666c0370d7a1c340f26dd03e21c856069ef40387476e2"
+    sha256 "e87ca99e1658b1b1d82143f452d2803072ad8a3798373a2b601718b535c02626"
   end
 
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-amd64.tar.gz"
-      sha256 "5122914a6ac1a88ef494b787761fdc730729307670d30dd23ec1cae75c945425"
+      sha256 "6ffd46d98317c1a2782a718635c1540dad2e77ac455676e49cf82c3787f9824b"
     elsif Hardware::CPU.arm?
       url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/hypercolor-#{version}-linux-arm64.tar.gz"
-      sha256 "fd5ddfeac561793a7a6fa3ac2aef81cd93c18be3143baeb51d93ccd76cabe14e"
+      sha256 "5a77e8b59ed9d89ddac9a534b41dd7e940e7c183471bebd7f76ef8797cf80756"
     end
   end
 
