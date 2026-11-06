@@ -2,23 +2,23 @@ class Unifly < Formula
   desc "CLI + TUI for managing UniFi network controllers"
   homepage "https://github.com/hyperb1iss/unifly"
   license "Apache-2.0"
-  version "0.12.0"
+  version "0.12.1"
 
   on_macos do
     on_arm do
       url "https://github.com/hyperb1iss/unifly/releases/download/v#{version}/unifly-macos-arm64"
-      sha256 "d080a1fe88214b1df7e67dd7234f5c90a2767f3fd7d70834fc9afaed69d07498"
+      sha256 "3d7f61e7799356ad8abf502288187629b7216297979664c19f9c8fd0aa10cb34"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/hyperb1iss/unifly/releases/download/v#{version}/unifly-linux-arm64"
-      sha256 "0b64a6abad553171db315e85c9f2b61262226891d4da78feded1756f69ac8e67"
+      sha256 "189ff60cd57f59285ab471876b8d70aae1d98e4885f67090d8ffbb667764690d"
     end
     on_intel do
       url "https://github.com/hyperb1iss/unifly/releases/download/v#{version}/unifly-linux-amd64"
-      sha256 "96103298453ef1e1a4af8b338a6ae8627768a3047f10dc99e32b28b0ded57e6c"
+      sha256 "0e7278994cfee7b94dfe0849a5cbeb68f3db4bd7bbeae54537723a6d07d7c2fd"
     end
   end
 
