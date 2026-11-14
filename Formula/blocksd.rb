@@ -3,9 +3,9 @@ class Blocksd < Formula
 
   desc "ROLI Blocks device discovery, keepalive, and control"
   homepage "https://github.com/hyperb1iss/blocksd"
-  url "https://github.com/hyperb1iss/blocksd/releases/download/v0.6.0/blocksd-0.6.0.tar.gz"
-  version "0.6.0"
-  sha256 "fef6276be0d92754b7ee08738b0a549de182c8d08363d09f4ba056dde117fce9"
+  url "https://github.com/hyperb1iss/blocksd/releases/download/v0.8.0/blocksd-0.8.0.tar.gz"
+  version "0.8.0"
+  sha256 "60e97a065ccd0346bfa0ae702c7747092d397a96bbac9ffbe53c59c40ef89651"
   license "ISC"
 
   depends_on "cmake" => :build
@@ -40,13 +40,13 @@ class Blocksd < Formula
   end
 
   resource "pydantic" do
-    url "https://files.pythonhosted.org/packages/53/ef/fc4f868f4e2cee79f863883abffceff107875f569b848507319842d2a681/pydantic-2.13.5.tar.gz"
-    sha256 "51a9c5f7b2f8e636f04c6cada605d9b6a3bf1348fdf945a3d8869b19bba0ee08"
+    url "https://files.pythonhosted.org/packages/b4/fc/1203d011145c98ddce3cd2f505bb54375ef8d43223053df6bfcf3c746f46/pydantic-2.14.3.tar.gz"
+    sha256 "1054f237f4d4733e5a30e1e2333bd33a2004ab9ab1510bd053a9a31bb48e232d"
   end
 
   resource "pydantic-core" do
-    url "https://files.pythonhosted.org/packages/af/f9/8a06bea35ef8daf588f707784c973a7046e0034c8d8cfb08828eeffb8b75/pydantic_core-2.46.5.tar.gz"
-    sha256 "10416c15b8839ecc4ef4d0885da76da6fd0f67333a0eb8aff6d93c4b8f2910fc"
+    url "https://files.pythonhosted.org/packages/9c/0f/34f9ce4ba701dd0b815033ef94d99b56f66200e578ee6052aa3ac26f064e/pydantic_core-2.50.4.tar.gz"
+    sha256 "aead3b74b68396bf0feab5d57e050b730ded7df55853c1e048a87e00aaf033c6"
   end
 
   resource "pygments" do
@@ -70,8 +70,8 @@ class Blocksd < Formula
   end
 
   resource "typer" do
-    url "https://files.pythonhosted.org/packages/16/f7/57713ba479fd405eb76de31404b2c744c289e336b2d999511ebf51e496f7/typer-0.27.2.tar.gz"
-    sha256 "269b7eb9d3c202ca84b4bc9618cb04ebb43d3d4d1e567e4c768607232c05f945"
+    url "https://files.pythonhosted.org/packages/03/51/d33db42cc72ffd8c30777547b42d01f0cbf9d95a770457698d0174b3ed71/typer-0.27.3.tar.gz"
+    sha256 "d0396f770a560ab1b0a8504e13b5f254b728cedb05c61cf0359e944e50ce8901"
   end
 
   resource "typing-extensions" do
@@ -82,6 +82,11 @@ class Blocksd < Formula
   resource "typing-inspection" do
     url "https://files.pythonhosted.org/packages/a3/26/b09b8010994eccc3c09092e6b34058f36a460eea2d4c3e8b910c695975a0/typing_inspection-0.4.4.tar.gz"
     sha256 "547274fa6b0a561ccf549cc9524b999a578e737d015d8709d021f9d0d13bea47"
+  end
+
+  resource "websockets" do
+    url "https://files.pythonhosted.org/packages/75/79/590c5f0cc7d1661195aeefccb0e342b79f4c77d368d526d028821a390332/websockets-17.4.tar.gz"
+    sha256 "09d3939b70df0c8ad2da145ebd50978bccaee1d565e838b0e7921a34d38571eb"
   end
 
   def install
@@ -110,6 +115,8 @@ class Blocksd < Formula
       from blocksd.web import resolve_static_dir
       assert version("blocksd") == "#{version}"
       assert rtmidi.API_MACOSX_CORE in rtmidi.get_compiled_api()
+      from blocksd.littlefoot.compiler import compile_source
+      assert len(compile_source("void repaint() {}")) > 10
       index = resolve_static_dir() / "index.html"
       assert index.is_file(), "Bundled dashboard is missing"
     PYTHON
