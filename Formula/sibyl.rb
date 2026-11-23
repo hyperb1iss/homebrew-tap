@@ -6,12 +6,10 @@ class Sibyl < Formula
 
   desc "Persistent memory and task coordination for AI coding agents"
   homepage "https://github.com/hyperb1iss/sibyl"
-  url "https://files.pythonhosted.org/packages/d8/24/e169e17244228413f4d9b0b1f5175fddd9b2ad981a5a94606271186ba459/sibyl_dev-1.4.13.tar.gz"
-  sha256 "0e50d5357304b25500771e9d65db874a37de43d20d134065375288737758c771"
+  url "https://files.pythonhosted.org/packages/26/ee/9d8586d3f079850d8a2f6e6aaad728316909c5ba1a7d524f9e6d31766320/sibyl_dev-1.5.0.tar.gz"
+  sha256 "ead5e2133910fcf7576d19f936390282a9d70ab751f2570b9c82c619af054205"
   license "Apache-2.0"
-  version "1.4.13"
-
-  PYTHON_PACKAGE_VERSION = "1.4.13"
+  version "1.5.0"
 
   # The CLI's third-party dependencies, pinned with hashes from the release's
   # uv.lock. They install as wheels, so no compiler or Rust toolchain is needed.
@@ -428,8 +426,8 @@ class Sibyl < Formula
   depends_on "python@3.13"
 
   resource "sibyl-core" do
-    url "https://files.pythonhosted.org/packages/27/78/1e38bd17bdd094157a9bfa1a7b98f7556ea0af6c9d7c15b5d72ec84bea83/sibyl_core-1.4.13.tar.gz"
-    sha256 "3c252488725f88a47cac9db6bab6089676ac01efae5b06da4aa433da210b0100"
+    url "https://files.pythonhosted.org/packages/6e/af/8db15f464733292e5bd926ba31bfe988a3c0036188e2abcc588ad1bd666b/sibyl_core-1.5.0.tar.gz"
+    sha256 "baa032c858ee01f9cdcea9060aaff6e2f4d801a902938fb09b81390e017978ca"
   end
 
   def install
@@ -459,7 +457,9 @@ class Sibyl < Formula
   end
 
   test do
-    assert_match PYTHON_PACKAGE_VERSION, shell_output("#{bin}/sibyl --version")
+    # The wheel's metadata keeps the release spelling (1.0.0-rc.1), not PyPI's
+    # normalized one (1.0.0rc1), and that is what the CLI prints.
+    assert_match version.to_s, shell_output("#{bin}/sibyl --version")
     system Formula["python@3.13"].opt_bin/"python3.13", "-m", "pip",
            "--python=#{libexec}/bin/python", "check"
   end
