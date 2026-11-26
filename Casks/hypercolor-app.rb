@@ -4,8 +4,8 @@
 # Updated by CI from signed and notarized release artifacts.
 
 cask "hypercolor-app" do
-  version "0.9.0"
-  sha256 "9792cdf8bde3717dcfef549d92abd087f0f256f96f4e30a033af098f0aea5614"
+  version "0.10.0"
+  sha256 "1e10184d10fb7e529935d52a80231ce54b6cc4ae8712b47e2187cacf4ee66a38"
 
   url "https://github.com/hyperb1iss/hypercolor/releases/download/v#{version}/Hypercolor-#{version}-arm64.dmg",
       verified: "github.com/hyperb1iss/hypercolor/"
